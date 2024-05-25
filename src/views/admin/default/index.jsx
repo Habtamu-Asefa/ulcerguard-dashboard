@@ -1,34 +1,14 @@
-/*!
-  _   _  ___  ____  ___ ________  _   _   _   _ ___   
- | | | |/ _ \|  _ \|_ _|__  / _ \| \ | | | | | |_ _| 
- | |_| | | | | |_) || |  / / | | |  \| | | | | || | 
- |  _  | |_| |  _ < | | / /| |_| | |\  | | |_| || |
- |_| |_|\___/|_| \_\___/____\___/|_| \_|  \___/|___|
-                                                                                                                                                                                                                                                                                                                                       
-=========================================================
-* Horizon UI - v1.1.0
-=========================================================
-
-* Product Page: https://www.horizon-ui.com/
-* Copyright 2023 Horizon UI (https://www.horizon-ui.com/)
-
-* Designed and Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // Chakra imports
 import {
   Avatar,
   Box,
+  Button,
   Flex,
   FormLabel,
   Icon,
   Select,
   SimpleGrid,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 // Assets
@@ -37,7 +17,7 @@ import Usa from "assets/img/dashboards/usa.png";
 import MiniCalendar from "components/calendar/MiniCalendar";
 import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MdAddTask,
   MdAttachMoney,
@@ -57,13 +37,25 @@ import {
 } from "views/admin/default/variables/columnsData";
 import tableDataCheck from "views/admin/default/variables/tableDataCheck.json";
 import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
+import fetchUsers from "../../../API/fetchUsers";
 
 export default function UserReports() {
+  const [data, setData] = useState("No data yet!");
   // Chakra Color Mode
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+
+  const handleFetch = async () => {
+    const response = await fetchUsers();
+    console.log(response);
+  };
+
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+      <Text>{data}</Text>
+      <Button colorScheme="blue" size="lg" onClick={handleFetch}>
+        Fetch Sample
+      </Button>{" "}
       <SimpleGrid
         columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }}
         gap="20px"
@@ -99,7 +91,6 @@ export default function UserReports() {
         />
         <MiniStatistics growth="+23%" name="Active Hours" value="1200" />
       </SimpleGrid>
-
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px" mb="20px">
         <TotalSpent />
         <WeeklyRevenue />
