@@ -50,6 +50,7 @@ export default function Marketplace() {
         columnsData={columnsDataColumns}
         tableData={tableDataColumns}
       />
+      
     </Box>
   );
 }

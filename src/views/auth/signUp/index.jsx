@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import {
   Box,
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -15,66 +14,67 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { RiEyeCloseLine } from "react-icons/ri";
 import DefaultAuth from "layouts/auth/Default";
 import shoes from "assets/img/auth/shoes.jpg";
-import { useAuth } from "context/AuthContext";  // Import useAuth
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { RiEyeCloseLine } from "react-icons/ri";
 
-function SignIn() {
-  const history = useHistory();
-  // const { login } = useAuth();  // Use useAuth
-
-  const { login, logout } = useAuth();  // Use useAuth
-
-  useEffect(() => {
-    logout(); 
-    console.log("logged out")
-  }, [logout]);
-  
-  
-
+function SignUp() {
+  // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("navy.700", "secondaryGray.600");
   const textColorBrand = useColorModeValue("brand.500", "white");
   const brandStars = useColorModeValue("brand.500", "brand.400");
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
-  const [error, setError] = useState("");
-
   const handleClick = () => setShow(!show);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
 
+  const [firstName, setFirstName] = useState("miedan");
+  const [lastName, setLastName] = useState("bizuayehu");
+  const [email, setEmail] = useState("mb@gmail.com");
+  const [password, setPassword] = useState("1234");
+  const [error, setError] = useState(null);
+
+  const history = useHistory();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(null);
+  
+    if (!firstName || !lastName || !email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+  
+    const name = `${firstName} ${lastName}`;
+  
     try {
-      const response = await fetch("http://localhost:3001/admin/signin", {
+      console.log('data to send:', { name, email, password });
+      
+      const response = await fetch("http://localhost:3001/admin/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password }),
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        login(data.token); // Update the login function call
-        history.push("/admin/dashboard"); // Redirect to the admin dashboard
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Login failed");
+  
+      console.log('Response status:', response.status);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.log('Error response text:', errorText);
+        throw new Error("Failed to sign up. Please try again.");
       }
+  
+      const data = await response.json();
+      console.log("Successfully signed up:", data);
+    //   history.push("/dashboard"); // Redirect to the dashboard or any other page
     } catch (error) {
-      console.error("Error during login", error);
-      setError("Error during login. Please try again later.");
+      console.error("Error during sign up:", error);
+      setError(error.message);
     }
   };
-
   return (
     <DefaultAuth illustrationBackground={shoes} image={shoes}>
       <Flex
@@ -92,7 +92,7 @@ function SignIn() {
       >
         <Box me="auto">
           <Heading color={textColor} fontSize="36px" mb="10px">
-            Sign In
+            Sign Up
           </Heading>
           <Text
             mb="36px"
@@ -101,7 +101,7 @@ function SignIn() {
             fontWeight="400"
             fontSize="md"
           >
-            Enter your email and password to sign in!
+            Enter your Information to sign up!
           </Text>
         </Box>
         <Flex
@@ -125,6 +125,56 @@ function SignIn() {
                 color={textColor}
                 mb="8px"
               >
+                First name<Text color={brandStars}>*</Text>
+              </FormLabel>
+              <Input
+                id="first-name"
+                isRequired={true}
+                variant="auth"
+                fontSize="sm"
+                ms={{ base: "0px", md: "0px" }}
+                type="text"
+                placeholder="Miedan"
+                mb="24px"
+                fontWeight="500"
+                size="lg"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+
+              <FormLabel
+                display="flex"
+                ms="4px"
+                fontSize="sm"
+                fontWeight="500"
+                color={textColor}
+                mb="8px"
+              >
+                Last name<Text color={brandStars}>*</Text>
+              </FormLabel>
+              <Input
+                id="last-name"
+                isRequired={true}
+                variant="auth"
+                fontSize="sm"
+                ms={{ base: "0px", md: "0px" }}
+                type="text"
+                placeholder="Bizuayehu"
+                mb="24px"
+                fontWeight="500"
+                size="lg"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+
+              <FormLabel
+                display="flex"
+                ms="4px"
+                fontSize="sm"
+                fontWeight="500"
+                color={textColor}
+                mb="8px"
+              >
                 Email<Text color={brandStars}>*</Text>
               </FormLabel>
               <Input
@@ -134,13 +184,14 @@ function SignIn() {
                 fontSize="sm"
                 ms={{ base: "0px", md: "0px" }}
                 type="email"
-                placeholder="mail@simmmple.com"
+                placeholder="mb@gmail.com"
                 mb="24px"
                 fontWeight="500"
                 size="lg"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+
               <FormLabel
                 ms="4px"
                 fontSize="sm"
@@ -172,34 +223,13 @@ function SignIn() {
                   />
                 </InputRightElement>
               </InputGroup>
-              <Flex justifyContent="space-between" align="center" mb="24px">
-                <FormControl display="flex" alignItems="center">
-                  <Checkbox
-                    id="remember-login"
-                    colorScheme="brandScheme"
-                    me="10px"
-                  />
-                  <FormLabel
-                    htmlFor="remember-login"
-                    mb="0"
-                    fontWeight="normal"
-                    color={textColor}
-                    fontSize="sm"
-                  >
-                    Keep me logged in
-                  </FormLabel>
-                </FormControl>
-                <NavLink to="/auth/forgot-password">
-                  <Text
-                    color={textColorBrand}
-                    fontSize="sm"
-                    w="124px"
-                    fontWeight="500"
-                  >
-                    Forgot password?
-                  </Text>
-                </NavLink>
-              </Flex>
+
+              {error && (
+                <Text color="red.500" mb="24px" fontWeight="500" fontSize="sm">
+                  {error}
+                </Text>
+              )}
+
               <Button
                 fontSize="sm"
                 variant="brand"
@@ -209,15 +239,10 @@ function SignIn() {
                 mb="24px"
                 type="submit"
               >
-                Sign In
+                Sign Up
               </Button>
             </FormControl>
           </form>
-          {error && (
-            <Text color="red.500" mt="4" textAlign="center">
-              {error}
-            </Text>
-          )}
           <Flex
             flexDirection="column"
             justifyContent="center"
@@ -226,15 +251,16 @@ function SignIn() {
             mt="0px"
           >
             <Text color={textColorDetails} fontWeight="400" fontSize="14px">
-              Not registered yet?
-              <NavLink to="/auth/sign-up">
+              Already have an account?
+              <NavLink to="/auth/sign-in">   
+          
                 <Text
                   color={textColorBrand}
                   as="span"
                   ms="5px"
                   fontWeight="500"
                 >
-                  Create an Account
+                  Sign In
                 </Text>
               </NavLink>
             </Text>
@@ -245,4 +271,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignUp;

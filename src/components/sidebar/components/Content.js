@@ -1,9 +1,7 @@
 // chakra imports
 import { Box, Flex, Stack } from "@chakra-ui/react";
-//   Custom components
 import Brand from "components/sidebar/components/Brand";
 import Links from "components/sidebar/components/Links";
-import SidebarCard from "components/sidebar/components/SidebarCard";
 import React from "react";
 
 // FUNCTIONS
@@ -22,7 +20,7 @@ function SidebarContent(props) {
       <Brand />
       <Stack direction="column" mb="auto" mt="8px">
         <Box ps="20px" pe={{ md: "16px", "2xl": "1px" }}>
-          <Links routes={routes} />
+           <Links routes={routes} />
         </Box>
       </Stack>
 
