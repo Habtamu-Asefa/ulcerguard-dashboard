@@ -34,6 +34,12 @@ function SignUp() {
   const [lastName, setLastName] = useState("bizuayehu");
   const [email, setEmail] = useState("mb@gmail.com");
   const [password, setPassword] = useState("1234");
+  const [Speciality, setSpeciality] = useState("Endocrinologist");
+  const [year_of_experiance, setyear_of_experiance] = useState("10");
+  const [language, setlanguage] = useState("Amharic");
+  const [working_place, setworking_place] = useState("Black Lion");
+  
+
   const [error, setError] = useState(null);
 
   const history = useHistory();
@@ -50,14 +56,14 @@ function SignUp() {
     const name = `${firstName} ${lastName}`;
   
     try {
-      console.log('data to send:', { name, email, password });
+      console.log('data to send:', { name, email, password, Speciality, year_of_experiance, language, working_place });
       
       const response = await fetch("http://localhost:3001/admin/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, Speciality, year_of_experiance, language, working_place }),
       });
   
       console.log('Response status:', response.status);
@@ -223,6 +229,108 @@ function SignUp() {
                   />
                 </InputRightElement>
               </InputGroup>
+
+              <FormLabel
+                display="flex"
+                ms="4px"
+                fontSize="sm"
+                fontWeight="500"
+                color={textColor}
+                mb="8px"
+              >
+                Speciality<Text color={brandStars}>*</Text>
+              </FormLabel>
+              <Input
+                id="speciality"
+                isRequired={true}
+                variant="auth"
+                fontSize="sm"
+                ms={{ base: "0px", md: "0px" }}
+                type="text"
+                placeholder="Endocronologist"
+                mb="24px"
+                fontWeight="500"
+                size="lg"
+                value={Speciality}
+                onChange={(e) => setSpeciality(e.target.value)}
+              />
+
+              <FormLabel
+                display="flex"
+                ms="4px"
+                fontSize="sm"
+                fontWeight="500"
+                color={textColor}
+                mb="8px"
+              >
+                working place<Text color={brandStars}>*</Text>
+              </FormLabel>
+              <Input
+                id="working_place"
+                isRequired={true}
+                variant="auth"
+                fontSize="sm"
+                ms={{ base: "0px", md: "0px" }}
+                type="text"
+                placeholder="Black Lion"
+                mb="24px"
+                fontWeight="500"
+                size="lg"
+                value={working_place}
+                onChange={(e) => setworking_place(e.target.value)}
+              />
+              
+              <FormLabel
+              display="flex"
+              ms="4px"
+              fontSize="sm"
+              fontWeight="500"
+              color={textColor}
+              mb="8px"
+            >
+              Year of experience<Text color={brandStars}>*</Text>
+            </FormLabel>
+            <Input
+              id="year_of_experience"
+              isRequired={true}
+              variant="auth"
+              fontSize="sm"
+              ms={{ base: "0px", md: "0px" }}
+              type="text"
+              placeholder="2"
+              mb="24px"
+              fontWeight="500"
+              size="lg"
+              value={year_of_experiance}
+              onChange={(e) => setyear_of_experiance(e.target.value)}
+            />
+
+
+            <FormLabel
+            display="flex"
+            ms="4px"
+            fontSize="sm"
+            fontWeight="500"
+            color={textColor}
+            mb="8px"
+          >
+            Language<Text color={brandStars}>*</Text>
+          </FormLabel>
+          <Input
+            id="language"
+            isRequired={true}
+            variant="auth"
+            fontSize="sm"
+            ms={{ base: "0px", md: "0px" }}
+            type="text"
+            placeholder="2"
+            mb="24px"
+            fontWeight="500"
+            size="lg"
+            value={language}
+            onChange={(e) => setlanguage(e.target.value)}
+          />
+              
 
               {error && (
                 <Text color="red.500" mb="24px" fontWeight="500" fontSize="sm">

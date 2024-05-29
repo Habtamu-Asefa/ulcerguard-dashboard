@@ -25,17 +25,11 @@ export default function GeneralInformation(props) {
         mb='4px'>
         General Information
       </Text>
-      <Text color={textColorSecondary} fontSize='md' me='26px' mb='40px'>
-        As we live, our hearts turn colder. Cause pain is what we go through as
-        we become older. We get insulted by others, lose trust for those others.
-        We get back stabbed by friends. It becomes harder for us to give others
-        a hand. We get our heart broken by people we love, even that we give
-        them all...
-      </Text>
+      
       <SimpleGrid columns='2' gap='20px'>
         <Information
           boxShadow={cardShadow}
-          title='Education'
+          title='Place of work'
           value='Stanford University'
         />
         <Information
@@ -45,24 +39,20 @@ export default function GeneralInformation(props) {
         />
         <Information
           boxShadow={cardShadow}
-          title='Department'
+          title='Year of experience'
           value='Product Design'
         />
         <Information
           boxShadow={cardShadow}
-          title='Work History'
+          title='Email'
           value='Google, Facebook'
         />
         <Information
           boxShadow={cardShadow}
-          title='Organization'
+          title='Speciality'
           value='Simmmple Web LLC'
         />
-        <Information
-          boxShadow={cardShadow}
-          title='Birthday'
-          value='20 July 1986'
-        />
+        
       </SimpleGrid>
     </Card>
   );

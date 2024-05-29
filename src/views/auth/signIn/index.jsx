@@ -24,30 +24,25 @@ import { useAuth } from "context/AuthContext";  // Import useAuth
 
 function SignIn() {
   const history = useHistory();
-  // const { login } = useAuth();  // Use useAuth
+  const { login } = useAuth();  // Use useAuth
+  // const { login, logout } = useAuth();  // Use useAuth
 
-  const { login, logout } = useAuth();  // Use useAuth
-
-  useEffect(() => {
-    logout(); 
-    console.log("logged out")
-  }, [logout]);
-  
-  
-
+  // useEffect(() => {
+  //   logout(); 
+  //   console.log("logged out")
+  // }, [logout]);
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
   const textColorDetails = useColorModeValue("navy.700", "secondaryGray.600");
   const textColorBrand = useColorModeValue("brand.500", "white");
   const brandStars = useColorModeValue("brand.500", "brand.400");
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-
   const handleClick = () => setShow(!show);
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -63,8 +58,8 @@ function SignIn() {
 
       if (response.ok) {
         const data = await response.json();
-        login(data.token); // Update the login function call
-        history.push("/admin/dashboard"); // Redirect to the admin dashboard
+        login(data.token); 
+        history.push("/admin/default"); 
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Login failed");

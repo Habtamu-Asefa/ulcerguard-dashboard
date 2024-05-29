@@ -2,7 +2,6 @@ import React from "react";
 
 import { Icon } from "@chakra-ui/react";
 import {
-  MdBarChart,
   MdPerson,
   MdHome,
   MdLock,
@@ -13,8 +12,8 @@ import {
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
-import DataTables from "views/admin/dataTables";
-import RTL from "views/admin/rtl";
+// import DataTables from "views/admin/dataTables";
+// import RTL from "views/admin/rtl";
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentered from "views/auth/signUp";
@@ -30,7 +29,7 @@ const routes = [
   {
     name: "Users",
     layout: "/admin",
-    path: "/nft-marketplace",
+    path: "/user",
     icon: (
       <Icon
         as={MdOutlineShoppingCart}
