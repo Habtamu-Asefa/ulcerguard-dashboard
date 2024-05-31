@@ -12,6 +12,7 @@ import {
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
+import blog from"views/admin/blog";
 // import DataTables from "views/admin/dataTables";
 // import RTL from "views/admin/rtl";
 // Auth Imports
@@ -48,6 +49,13 @@ const routes = [
     path: "/profile",
     icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
     component: Profile,
+  },
+  {
+    name: "Blog",
+    layout: "/admin",
+    path: "/blog",
+    icon: <Icon as={MdOutlineShoppingCart} width="20px" height="20px" color="inherit" />,
+    component: blog,
   },
   {
     name: "Sign out",
