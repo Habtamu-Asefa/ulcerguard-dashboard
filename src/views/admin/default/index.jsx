@@ -37,7 +37,7 @@ import {
 } from "views/admin/default/variables/columnsData";
 import tableDataCheck from "views/admin/default/variables/tableDataCheck.json";
 import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
-import fetchUsers from "../../../API/fetchUsers";
+import fetchUsers from "../../../API/fetchAdmin";
 
 export default function UserReports() {
   const [data, setData] = useState("No data yet!");

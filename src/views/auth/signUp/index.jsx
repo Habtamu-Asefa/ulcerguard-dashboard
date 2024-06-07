@@ -32,9 +32,9 @@ function SignUp() {
 
   const [firstName, setFirstName] = useState("miedan");
   const [lastName, setLastName] = useState("bizuayehu");
-  const [email, setEmail] = useState("mb@gmail.com");
+  const [email, setEmail] = useState("mb@gmmail.com");
   const [password, setPassword] = useState("1234");
-  const [Speciality, setSpeciality] = useState("Endocrinologist");
+  const [speciality, setSpeciality] = useState("Endocrinologist");
   const [year_of_experiance, setyear_of_experiance] = useState("10");
   const [language, setlanguage] = useState("Amharic");
   const [working_place, setworking_place] = useState("Black Lion");
@@ -56,14 +56,14 @@ function SignUp() {
     const name = `${firstName} ${lastName}`;
   
     try {
-      console.log('data to send:', { name, email, password, Speciality, year_of_experiance, language, working_place });
+      console.log('data to send:', { name, email, password, speciality, year_of_experiance, language, working_place });
       
       const response = await fetch("http://localhost:3001/admin/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password, Speciality, year_of_experiance, language, working_place }),
+        body: JSON.stringify({ name, email, password, speciality, year_of_experiance, language, working_place }),
       });
   
       console.log('Response status:', response.status);
@@ -251,7 +251,7 @@ function SignUp() {
                 mb="24px"
                 fontWeight="500"
                 size="lg"
-                value={Speciality}
+                value={speciality}
                 onChange={(e) => setSpeciality(e.target.value)}
               />
 
