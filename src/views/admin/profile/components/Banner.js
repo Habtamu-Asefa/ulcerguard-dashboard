@@ -5,7 +5,7 @@ import React, {useState, useEffect} from "react";
 import fetchAdmin from "API/fetchAdmin";
 
 export default function Banner(props) {
-  const { banner, avatar, role, active, since, avarage } = props;
+  const { banner, avatar, role, active, since, avarage,users } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
@@ -14,33 +14,9 @@ export default function Banner(props) {
     "#111C44 !important"
   );
 
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        const data = await fetchAdmin();
-        setUserData(data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    }
 
-    getData();
-  }, []);
-
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
-
-  if (error) {
-    return <Text>Error loading data: {error.message}</Text>;
-  }
-
+ 
   return (
     <Card mb={{ base: "0px", lg: "20px" }} align="center">
       <Box
@@ -60,10 +36,10 @@ export default function Banner(props) {
         borderColor={borderColor}
       />
       <Text color={textColorPrimary} fontWeight="bold" fontSize="xl" mt="10px">
-        {userData.name}
+        {users.name}
       </Text>
       <Text color={textColorSecondary} fontSize="sm">
-        {userData.speciality}
+        {users.speciality}
       </Text>
       <Flex w="max-content" mx="auto" mt="26px">
         <Flex mx="auto" me="60px" align="center" direction="column">
@@ -74,22 +50,8 @@ export default function Banner(props) {
             Active Hours
           </Text>
         </Flex>
-        <Flex mx="auto" me="60px" align="center" direction="column">
-          <Text color={textColorPrimary} fontSize="2xl" fontWeight="700">
-            {avarage}
-          </Text>
-          <Text color={textColorSecondary} fontSize="sm" fontWeight="400">
-            Normal Avarage
-          </Text>
-        </Flex>
-        <Flex mx="auto" align="center" direction="column">
-          <Text color={textColorPrimary} fontSize="2xl" fontWeight="700">
-            {since}
-          </Text>
-          <Text color={textColorSecondary} fontSize="sm" fontWeight="400">
-            Since
-          </Text>
-        </Flex>
+       
+        
       </Flex>
     </Card>
   );

@@ -8,8 +8,7 @@ import fetchAdmin from "API/fetchAdmin";
 
 
 export default function GeneralInformation(props) {
-  const { ...rest } = props;
-
+  const { users, ...rest } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
@@ -19,32 +18,7 @@ export default function GeneralInformation(props) {
   );
 
   // State to hold the fetched data
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function getData() {
-      try {
-        const data = await fetchAdmin();
-        setUserData(data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getData();
-  }, []);
-
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
-
-  if (error) {
-    return <Text>Error loading data: {error.message}</Text>;
-  }
+  
 
   return (
     <Card mb={{ base: "0px", "2xl": "20px" }} {...rest}>
@@ -53,18 +27,18 @@ export default function GeneralInformation(props) {
         fontWeight="bold"
         fontSize="2xl"
         mt="10px"
-        mb="4px"
+        mb="6px"
       >
-        Doctor General Information
+        Health care professional General Information
       </Text>
 
       <SimpleGrid columns="2" gap="20px">
-        <Information boxShadow={cardShadow} title="Name" value={userData.name} />
-        <Information boxShadow={cardShadow} title="Place of work" value={userData.working_place} />
-        <Information boxShadow={cardShadow} title="Languages" value={userData.language} />
-        <Information boxShadow={cardShadow} title="Year of experience" value={userData.year_of_experiance} />
-        <Information boxShadow={cardShadow} title="Email" value={userData.email} />
-        <Information boxShadow={cardShadow} title="Speciality" value={userData.speciality} />
+        <Information boxShadow={cardShadow} title="Name" value={users.name} />
+        <Information boxShadow={cardShadow} title="Place of work" value={users.working_place} />
+        <Information boxShadow={cardShadow} title="Languages" value={users.language} />
+        <Information boxShadow={cardShadow} title="Year of experience" value={users.year_of_experiance} />
+        <Information boxShadow={cardShadow} title="Email" value={users.email} />
+        <Information boxShadow={cardShadow} title="Speciality" value={users.speciality} />
       </SimpleGrid>
     </Card>
   );

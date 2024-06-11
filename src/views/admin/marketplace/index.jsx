@@ -20,7 +20,7 @@
 
 */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Chakra imports
 import {
@@ -35,21 +35,71 @@ import {
 } from "@chakra-ui/react";
 
 // Custom components
-import ColumnsTable from "../dataTables/components/ColumnsTable";
 import { columnsDataColumns } from "../dataTables/variables/columnsData";
 import tableDataColumns from "views/admin/dataTables/variables/tableDataColumns.json";
+import Userdata from "../dataTables/components/ColumnsTable";
+// import fetchAdmin from "API/fetchAdmin";
+import fetchUsers from "API/fetchUser";
 
 export default function Marketplace() {
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const textColorBrand = useColorModeValue("brand.500", "white");
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+      
+  //       const data = await fetchAdmin();
+       
+  //       setUsers(data);
+  //       setLoading(false);
+
+  //       setError(null);
+     
+  //   };
+
+  //    fetchData();
+  // }, [users]);
+
+  const fetchData = async () => {
+      
+    const data = await fetchUsers();
+    console.log('data: ',users)
+
+   
+    setUsers(data);
+    setLoading(false);
+
+    setError(null);
+ 
+};
+
+if(users.length === 0){
+  fetchData();
+
+}
+
+  console.log('users: ' ,users)
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+  
   return (
     <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>
       {/* Main Fields */}
-      <ColumnsTable
-        columnsData={columnsDataColumns}
-        tableData={tableDataColumns}
-      />
+    
+      <Userdata users={users}/>
       
     </Box>
   );
