@@ -62,7 +62,7 @@ function SignIn() {
         history.push("/admin/default"); 
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Login failed");
+        setError(errorData.message || "failed to signin");
       }
     } catch (error) {
       console.error("Error during login", error);

@@ -22,17 +22,67 @@
 
 // Chakra imports
 import { Box, Grid } from "@chakra-ui/react";
-
-// Custom components
 import Banner from "views/admin/profile/components/Banner";
 import General from "views/admin/profile/components/General";
-
-// Assets
 import banner from "assets/img/auth/banner.png";
 import avatar from "assets/img/avatars/avatar4.png";
-import React from "react";
+import React, {useState} from "react";
+import fetchAdmin from "API/fetchAdmin";
+
+
+
 
 export default function Overview() {
+
+
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+      
+  //       const data = await fetchAdmin();
+       
+  //       setUsers(data);
+  //       setLoading(false);
+
+  //       setError(null);
+     
+  //   };
+
+  //    fetchData();
+  // }, [users]);
+
+  const fetchData = async () => {
+      
+    const data = await fetchAdmin();
+    // console.log('data: ',users)
+
+   
+    setUsers(data);
+    setLoading(false);
+
+    setError(null);
+ 
+};
+
+if(users.length === 0){
+  fetchData();
+
+}
+
+  // console.log('users: ' ,users)
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+  
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       {/* Main Fields */}
@@ -50,12 +100,11 @@ export default function Overview() {
         <Banner
           gridArea="1 / 1 / 2 / 2"
           banner={banner}
-          avatar={avatar}
+         
           name="Adela Parkson"
           role="User"
           active="17"
-          since="9.7k"
-          avarage="274"
+          users={users}
         />
         {/* <Storage
           gridArea={{ base: "2 / 1 / 3 / 2", lg: "1 / 2 / 2 / 3" }}
@@ -90,6 +139,7 @@ export default function Overview() {
           gridArea={{ base: "2 / 1 / 3 / 2", lg: "1 / 1 / 2 / 3" }}
           minH="365px"
           pe="20px"
+          users={users}
         />
       </Grid>
     </Box>

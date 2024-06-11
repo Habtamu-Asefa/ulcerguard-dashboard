@@ -1,6 +1,6 @@
 export default async function fetchAdmin() {
   try {
-    const response = await fetch("http://localhost:3001/admin/fetchblogs");
+    const response = await fetch("http://localhost:3001/admin/fetchAdmin");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

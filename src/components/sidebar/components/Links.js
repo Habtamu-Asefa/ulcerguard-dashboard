@@ -10,7 +10,7 @@ export function SidebarLinks(props) {
   let activeColor = useColorModeValue("gray.700", "white");
   let inactiveColor = useColorModeValue(
     "secondaryGray.600",
-    "secondaryGray.600"
+    "secondaryGray.600" 
   );
   let activeIcon = useColorModeValue("brand.500", "white");
   let textColor = useColorModeValue("secondaryGray.500", "white");
