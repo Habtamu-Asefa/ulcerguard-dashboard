@@ -1,6 +1,11 @@
 export default async function fetchAdmin() {
   try {
-    const response = await fetch("http://localhost:3001/admin/fetchAdmin");
+    const response = await fetch("http://localhost:3001/admin/fetchAdmin", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

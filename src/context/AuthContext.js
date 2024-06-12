@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -8,22 +8,26 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-// change to false to work
+
+  console.log("checking token on refresh: ", isAuthenticated);
+  // change to false to work
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
+    console.log("token checking: ", !!token);
+
     if (token) {
       setIsAuthenticated(true);
     }
   }, []);
 
   const login = (token) => {
-    localStorage.setItem('token', token);
+    console.log("token in login: ", token);
+    localStorage.setItem("token", token);
     setIsAuthenticated(true);
   };
 
-
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setIsAuthenticated(false);
   };
 

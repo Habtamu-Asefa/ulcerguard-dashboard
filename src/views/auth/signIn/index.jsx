@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useHistory } from "react-router-dom";
 import {
   Box,
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -15,20 +12,21 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
+import shoes from "assets/img/auth/shoes.jpg";
+import { useAuth } from "context/AuthContext"; // Import useAuth
+import DefaultAuth from "layouts/auth/Default";
+import { useState } from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
-import DefaultAuth from "layouts/auth/Default";
-import shoes from "assets/img/auth/shoes.jpg";
-import { useAuth } from "context/AuthContext";  // Import useAuth
+import { NavLink, useHistory } from "react-router-dom";
 
 function SignIn() {
   const history = useHistory();
-  const { login } = useAuth();  // Use useAuth
+  const { login } = useAuth(); // Use useAuth
   // const { login, logout } = useAuth();  // Use useAuth
 
   // useEffect(() => {
-  //   logout(); 
+  //   logout();
   //   console.log("logged out")
   // }, [logout]);
   const textColor = useColorModeValue("navy.700", "white");
@@ -42,7 +40,6 @@ function SignIn() {
   const [error, setError] = useState("");
   const handleClick = () => setShow(!show);
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -58,8 +55,8 @@ function SignIn() {
 
       if (response.ok) {
         const data = await response.json();
-        login(data.token); 
-        history.push("/admin/default"); 
+        login(data.token);
+        history.push("/admin/default");
       } else {
         const errorData = await response.json();
         setError(errorData.message || "failed to signin");
@@ -167,23 +164,7 @@ function SignIn() {
                   />
                 </InputRightElement>
               </InputGroup>
-              <Flex justifyContent="space-between" align="center" mb="24px">
-                <FormControl display="flex" alignItems="center">
-                  <Checkbox
-                    id="remember-login"
-                    colorScheme="brandScheme"
-                    me="10px"
-                  />
-                  <FormLabel
-                    htmlFor="remember-login"
-                    mb="0"
-                    fontWeight="normal"
-                    color={textColor}
-                    fontSize="sm"
-                  >
-                    Keep me logged in
-                  </FormLabel>
-                </FormControl>
+              <Flex justifyContent="space-between" align="center" mb="10px">
                 <NavLink to="/auth/forgot-password">
                   <Text
                     color={textColorBrand}
@@ -195,6 +176,16 @@ function SignIn() {
                   </Text>
                 </NavLink>
               </Flex>
+              {error && (
+                <Text
+                  color="red.500"
+                  mt="4"
+                  textAlign="left"
+                  paddingBottom={10}
+                >
+                  {error}
+                </Text>
+              )}
               <Button
                 fontSize="sm"
                 variant="brand"
@@ -208,11 +199,7 @@ function SignIn() {
               </Button>
             </FormControl>
           </form>
-          {error && (
-            <Text color="red.500" mt="4" textAlign="center">
-              {error}
-            </Text>
-          )}
+
           <Flex
             flexDirection="column"
             justifyContent="center"
