@@ -37,7 +37,7 @@ import {
 } from "views/admin/default/variables/columnsData";
 import tableDataCheck from "views/admin/default/variables/tableDataCheck.json";
 import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
-import fetchUsers from "../../../API/fetchAdmin";
+import fetchUsers from "API/fetchUser";
 
 export default function UserReports() {
   const [data, setData] = useState("No data yet!");
@@ -49,6 +49,27 @@ export default function UserReports() {
     const response = await fetchUsers();
     console.log(response);
   };
+
+  const [users, setUsers] = useState([]);
+ 
+
+  const fetchData = async () => {
+      
+    const data = await fetchUsers();
+    console.log('data: ',users)
+
+   
+    setUsers(data);
+
+ 
+};
+
+if(users.length === 0){
+  fetchData();
+
+}
+
+
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -65,20 +86,20 @@ export default function UserReports() {
         mb="20px"
       >
         <MiniStatistics
-          
           name="Total Users"
-          value="350"
+          value={users.length}
         />
         <MiniStatistics
-          
           name="Active Users"
-          value="42"
+          value={users.length}
         />
-        <MiniStatistics  name="Active Hours" value="1200" />
+      
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px" mb="20px">
       <PieCard />
-        <WeeklyRevenue />
+
+        
+        <MiniCalendar h='100%' minW='100%' selectRange={false} />
       </SimpleGrid>
        <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
       
@@ -91,7 +112,7 @@ export default function UserReports() {
         
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
           
-          <MiniCalendar h='100%' minW='100%' selectRange={false} />
+          
         </SimpleGrid>
       </SimpleGrid> 
    

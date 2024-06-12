@@ -1,4 +1,3 @@
-// src/components/protectedroute/ProtectedRoute.js
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from 'context/AuthContext';
@@ -13,7 +12,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
         isAuthenticated ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/auth/signin" />
+          <Redirect to="/auth/sign-in" />
         )
       }
     />
@@ -21,3 +20,4 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
 };
 
 export default ProtectedRoute;
+
