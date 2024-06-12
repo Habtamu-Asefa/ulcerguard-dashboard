@@ -25,7 +25,7 @@ export default function UsersTable({users}) {
     <div>
       <Flex px="25px" justify="space-between" mb="20px" align="center">
         <Text color={textColor} fontSize="22px" fontWeight="700" lineHeight="100%">
-          User Data
+          User Data 
         </Text>
         <Menu />
       </Flex>

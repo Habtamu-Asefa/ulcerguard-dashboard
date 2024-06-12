@@ -1,6 +1,8 @@
+// src/views/auth/signOut/SignOut.js
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from "context/AuthContext"; 
+// import { useAuth } from 'contexts/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 const SignOut = () => {
   const history = useHistory();
@@ -8,10 +10,10 @@ const SignOut = () => {
 
   useEffect(() => {
     logout();
-    history.push('/auth/signin');
-  }, [logout,history]);
+    history.push('/auth/sign-in');
+  }, [logout, history]);
 
-  return null; 
+  return null;
 };
 
 export default SignOut;

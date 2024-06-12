@@ -46,9 +46,7 @@ export default function Banner(props) {
           <Text color={textColorPrimary} fontSize="2xl" fontWeight="700">
             {active}
           </Text>
-          <Text color={textColorSecondary} fontSize="sm" fontWeight="400">
-            Active Hours
-          </Text>
+
         </Flex>
        
         

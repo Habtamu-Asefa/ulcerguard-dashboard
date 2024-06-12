@@ -18,6 +18,10 @@ import blog from"views/admin/blog";
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentered from "views/auth/signUp";
+import SignOut from "views/auth/signOut/signOut";
+
+
+
 
 const routes = [
   {
@@ -60,16 +64,16 @@ const routes = [
   {
     name: "Sign out",
     layout: "/auth",
-    path: "/sign-in",
+    path: "/sign-out",
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
-    component: SignInCentered,
+    component: SignOut,
   },
   {
-    // name: "Sign Up",
+    name: "Sign in",
     layout: "/auth",
-    path: "/sign-up",
+    path: "/sign-in",
     // icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
-    component: SignUpCentered,
+    component: SignInCentered,
 
   },
 
