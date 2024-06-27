@@ -96,25 +96,25 @@ export const options = {
 const labels = ["Toe", "Heel", "MT-1", "MT-5"];
 
 // Function to generate pressure reading
-function generatePressureReading() {
-  const pressureValue = Math.floor(Math.random() * (400 - 100 + 1)) + 100;
-  const rt1 = Math.floor(Math.random() * 10);
-  const rt2 = Math.floor(Math.random() * 10);
-  const rt3 = Math.floor(Math.random() * 10);
-  const rt4 = Math.floor(Math.random() * 10);
+// function generatePressureReading() {
+//   const pressureValue = Math.floor(Math.random() * 100) + 100;
+//   const rt1 = Math.floor(Math.random() * 2);
+//   const rt2 = Math.floor(Math.random() * 2);
+//   const rt3 = Math.floor(Math.random() * 2);
+//   const rt4 = Math.floor(Math.random() * 2);
 
-  // Helper function to format numbers to a maximum of four significant digits
-  const formatNumber = (num) => parseFloat(num.toFixed(4));
+//   // Helper function to format numbers to a maximum of four significant digits
+//   const formatNumber = (num) => parseFloat(num.toFixed(4));
 
-  const currentDate = new Date();
-  return {
-    toe: formatNumber(pressureValue * rt1),
-    heel: formatNumber(pressureValue * rt2),
-    mt_1: formatNumber(pressureValue * rt3),
-    mt_2: formatNumber(pressureValue * rt4),
-    date: currentDate,
-  };
-}
+//   const currentDate = new Date();
+//   return {
+//     toe: formatNumber(pressureValue * rt1),
+//     heel: formatNumber(pressureValue * rt2),
+//     mt_1: formatNumber(pressureValue * rt3),
+//     mt_2: formatNumber(pressureValue * rt4),
+//     date: currentDate,
+//   };
+// }
 
 export function Stream() {
   const [data, setData] = useState({
@@ -134,30 +134,13 @@ export function Stream() {
 
   const chartRef = useRef(null);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const reading = generatePressureReading();
-  //     setData((prevData) => ({
-  //       labels,
-  //       datasets: [
-  //         {
-  //           ...prevData.datasets[0],
-  //           data: [reading.toe, reading.heel, reading.mt_1, reading.mt_2],
-  //         },
-  //       ],
-  //     }));
-  //   }, 1000); // Update every second
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
   useEffect(() => {
     socket.on("connect", () => {
       console.log("Connected to server with ID:", socket.id); // Connection log
     });
 
-    socket.on("pressureReading", (data) => {
-      // setPressure(data);
+    socket.on("pressueUpdateWeb", (data) => {
+      console.log("Reading from socket", data);
       setData((prevData) => ({
         labels,
         datasets: [
@@ -177,6 +160,7 @@ export function Stream() {
     return () => {
       socket.off("connect");
       socket.off("disconnect");
+      socket.off("pressueUpdateWeb");
     };
   }, []);
 
